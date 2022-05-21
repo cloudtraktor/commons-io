@@ -337,13 +337,13 @@ file comparators, endian transformation classes, and much more.
     <commons.javadoc.java.link>${commons.javadoc8.java.link}</commons.javadoc.java.link>
     <commons.javadoc.version>3.3.2</commons.javadoc.version>
     <commons.checkstyle-plugin.version>3.1.2</commons.checkstyle-plugin.version>
-    <checkstyle.impl.version>9.3</checkstyle.impl.version>
+    <checkstyle.impl.version>10.2</checkstyle.impl.version>
     <commons.jacoco.version>0.8.8</commons.jacoco.version>
     <commons.surefire.version>3.0.0-M5</commons.surefire.version>
     <commons.japicmp.version>0.15.7</commons.japicmp.version>
     <commons.enforcer.version>3.0.0</commons.enforcer.version>
     <commons.moditect.version>1.0.0.RC2</commons.moditect.version>
-    <commons.spotbugs.plugin.version>4.6.0.0</commons.spotbugs.plugin.version>
+    <commons.spotbugs.plugin.version>4.7.0.0</commons.spotbugs.plugin.version>
     <commons.spotbugs.impl.version>4.7.0</commons.spotbugs.impl.version>
     <jmh.version>1.35</jmh.version>
     <japicmp.skip>false</japicmp.skip>
