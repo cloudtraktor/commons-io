@@ -8,7 +8,7 @@ pipeline {
         steps {
             git branch: 'develop',
             credentialsId: 'github-ssh',
-            url: 'https://github.com/apache/commons-io.git'
+            url: 'https://github.com/cloudtraktor/commons-io.git'
         }
         stage('Build and Unit Test'){
             steps {
@@ -39,4 +39,3 @@ pipeline {
         }
     }
 }
-// mvn clean compile -Drat.skip=true package
