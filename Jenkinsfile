@@ -4,38 +4,55 @@ pipeline {
         maven 'Maven 3.3.9'
         jdk 'jdk8'
     }
+    stage ('Initialize') {
+        steps {
+                echo "PATH = ${PATH}"
+                echo "M2_HOME = ${M2_HOME}"
+        }
+    }
     stage('Checkout') {
         steps {
-            git branch: 'develop',
-            credentialsId: 'github-ssh',
-            url: 'https://github.com/cloudtraktor/commons-io.git'
-        }
-        stage('Build and Unit Test'){
-            steps {
-                sh 'mvn clean compile -Drat.skip=true package'
-            }
-            post {
-                success {
-                    junit 'target/surefire-reports/**/*.xml'
-                }
+            script {
+               git url: 'https://github.com/cloudtraktor/commons-io.git', credentialsId: 'github_credentials'
             }
         }
-        stage('Quality Test') {
-            steps {
-                sh 'mvn test -Drat.skip=true package'
+    }
+    stage('Build'){
+        agent {
+            label "maven"
+        }
+        steps {
+            sh 'mvn clean compile -Drat.skip=true'
+        }
+    }
+    stage('Unit Test') {
+        agent {
+            label "maven"
+        }
+        steps {
+            sh 'mvn test -Drat.skip=true'
+        }
+        post {
+            success {
+                junit 'target/surefire-reports/**/*.xml'
             }
         }
-        stage('Publish Artefact') {
-            steps {
+    }
+    stage('Publish Artefact') {
+        steps {
+            // Publish the artefact to Nexus
+        }
+    }
+    stage('Deploy To Develop Stage') {
+        steps {
+            script {
+               env.PIPELINE_NAMESPACE = "develop"
+               kubernetesDeploy kubeconfigId: 'docker-desktop', configs: 'k8s/deployment-template.yaml'
             }
         }
-        stage('Deploy To Next Stage') {
-            steps {
-            }
-        }
-        stage('Declarative: Post Actions') {
-            steps {
-            }
+    }
+    stage('Declarative: Post Actions') {
+        steps {
         }
     }
 }
